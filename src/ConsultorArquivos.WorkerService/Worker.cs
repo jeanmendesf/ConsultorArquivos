@@ -55,7 +55,5 @@ namespace ConsultorArquivos.WorkerService
             Console.WriteLine($"O arquivo   {e.Name}    foi criado.");
             //Ler e organizar arquivo em objetos.
         }
-
-
     }
 }
