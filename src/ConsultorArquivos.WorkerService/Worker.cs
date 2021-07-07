@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,9 +22,40 @@ namespace ConsultorArquivos.WorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                //Objeto que irá consultar se ha alterações na pasta/documentos.
+                FileSystemWatcher watcher = new FileSystemWatcher();
+
+                watcher.Path = @"E:\Exemplo";
+                watcher.Filter = "*.txt";
+
+                watcher.NotifyFilter = NotifyFilters.Attributes |
+                                       NotifyFilters.CreationTime |
+                                       NotifyFilters.FileName |
+                                       NotifyFilters.LastWrite |
+                                       NotifyFilters.LastAccess |
+                                       NotifyFilters.CreationTime;
+
+                watcher.Changed += new FileSystemEventHandler(ArquivoAtualizado);
+                watcher.Created += new FileSystemEventHandler(ArquivoCriado);
+
+
+                watcher.EnableRaisingEvents = true;
+                await Task.Delay(100000, stoppingToken);
             }
         }
+
+        public void ArquivoAtualizado(object source, FileSystemEventArgs e)
+        {
+            Console.WriteLine($"O arquivo   {e.Name}    foi alterado.");
+            //Lógica para verificar atualizações e atualizar BD.
+        }
+
+        public void ArquivoCriado(object source, FileSystemEventArgs e)
+        {
+            Console.WriteLine($"O arquivo   {e.Name}    foi criado.");
+            //Ler e organizar arquivo em objetos.
+        }
+
+
     }
 }
