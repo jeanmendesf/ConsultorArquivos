@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.API", "src\ConsultorArquivos.API\ConsultorArquivos.API.csproj", "{22185E57-0DF8-43AD-AD58-883EEDF40FC2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.Data", "src\ConsultorArquivos.Data\ConsultorArquivos.Data.csproj", "{CCC2DA61-64C7-470C-8DA7-FA15EBCB593B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26C10FBB-7318-4700-8037-198D4D9955D6} = {26C10FBB-7318-4700-8037-198D4D9955D6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.WorkerService", "src\ConsultorArquivos.WorkerService\ConsultorArquivos.WorkerService.csproj", "{94576F40-B112-4443-9DBC-FCC96AE9F45C}"
 EndProject
