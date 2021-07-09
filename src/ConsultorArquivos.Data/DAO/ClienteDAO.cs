@@ -38,7 +38,7 @@ namespace ConsultorArquivos.Data.DAO
                     Cliente cliente = new Cliente();
 
                     cliente.Id = Convert.ToInt32(reader["Id"]);
-                    cliente.ClientCode = reader["ClientCode"].ToString();
+                    cliente.ClientCode = reader["ClienteCode"].ToString();
                     cliente.Cnpj = reader["Cnpj"].ToString();
                     cliente.Contato = _contatoDAO.PreencherClienteContato(cliente.Id);
                     cliente.Endereco = _enderecoDAO.PreencherClienteEndereco(cliente.Id);
