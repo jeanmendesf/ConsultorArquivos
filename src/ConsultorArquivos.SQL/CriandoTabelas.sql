@@ -15,26 +15,23 @@ CREATE TABLE Cliente(
 --Criando tabela Contato
 USE db_ConsultorArquivos
 CREATE TABLE Contato(
-	Id		INT PRIMARY KEY NOT NULL ,
+	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	Email	VARCHAR(100),
 	DDD		INT,
-	Telefone INT,
-	ClienteId INT NOT NULL
+	Telefone INT
 );
 
 --Criando tabela Endereco
 USE db_ConsultorArquivos
 CREATE TABLE Endereco(
-	Id			INT PRIMARY KEY NOT NULL ,	
+	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,	
 	Logradouro	VARCHAR(200),
 	Numero		INT,
 	Complemento VARCHAR(200),
 	Cidade		VARCHAR(100),
 	Estado		VARCHAR(100),
 	Pais		VARCHAR(100),
-	Cep			INT,
-	ClienteId	INT NOT NULL
-
+	Cep			INT
 );
 
 --Relacionando Foreign Key
@@ -52,16 +49,5 @@ ALTER TABLE Cliente
 	FOREIGN KEY (ContatoId)
 	REFERENCES dbo.Contato(Id);
 
---Endereco_Cliente
-USE db_ConsultorArquivos
-ALTER TABLE Endereco
-	ADD CONSTRAINT Fk_Cliente_Endereco
-	FOREIGN KEY (ClienteId)
-	REFERENCES dbo.Cliente(Id);
 
---Contato_Cliente
-USE db_ConsultorArquivos
-ALTER TABLE Contato
-	ADD CONSTRAINT Fk_Cliente_Contato
-	FOREIGN KEY (ClienteId)
-	REFERENCES dbo.Cliente(Id);
+SELECT * FROM Cliente

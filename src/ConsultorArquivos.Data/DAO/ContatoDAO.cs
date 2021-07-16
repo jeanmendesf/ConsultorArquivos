@@ -10,14 +10,14 @@ namespace ConsultorArquivos.Data.DAO
         string connectionString = @"Data Source =  DESKTOP-9D3IEDO\SQLEXPRESS01;
                                     Initial Catalog = db_ConsultorArquivos; Integrated Security=True";
 
-        public Contato PreencherClienteContato(int ClienteId)
+        public Contato PreencherClienteContato(int contatoId)
         {
             Contato contato = new Contato();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand
-                                 ("SELECT * FROM dbo.Contato WHERE ClienteId =" + ClienteId, connection);
+                                 ("SELECT * FROM dbo.Contato WHERE Id=" + contatoId, connection);
                 cmd.CommandType = CommandType.Text;
 
                 connection.Open();

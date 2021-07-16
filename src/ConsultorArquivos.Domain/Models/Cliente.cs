@@ -32,6 +32,8 @@ namespace ConsultorArquivos.Domain.Models
         public Endereco Endereco { get; set; }
         public Contato Contato { get; set; }
 
+        public int ContatoId { get; set; }
+        public int EnderecoId { get; set; }
 
         public override string ToString()
         {

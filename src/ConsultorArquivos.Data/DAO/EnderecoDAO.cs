@@ -12,14 +12,14 @@ namespace ConsultorArquivos.Data.DAO
         string connectionString = @"Data Source =  DESKTOP-9D3IEDO\SQLEXPRESS01;
                                     Initial Catalog = db_ConsultorArquivos; Integrated Security=True";
 
-        public Endereco PreencherClienteEndereco(int ClienteId)
+        public Endereco PreencherClienteEndereco(int enderecoId)
         {
             Endereco endereco = new Endereco();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand
-                                 ("SELECT * FROM dbo.Endereco WHERE ClienteId =" + ClienteId, connection);
+                                 ("SELECT * FROM dbo.Endereco WHERE Id =" + enderecoId, connection);
                 cmd.CommandType = CommandType.Text;
 
                 connection.Open();
