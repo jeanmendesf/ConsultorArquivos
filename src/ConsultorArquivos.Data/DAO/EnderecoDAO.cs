@@ -41,5 +41,28 @@ namespace ConsultorArquivos.Data.DAO
             return endereco;
         }
 
+        public void AdicionarEndereco(Endereco endereco)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Endereco(Logradouro, Numero, Complemento, Cidade, Estado,Pais,Cep)" +
+                    "VALUES(@Logradouro, @Numero, @Complemento, @Cidade, @Estado, @Pais, @Cep)");
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
+                cmd.Parameters.AddWithValue("@Numero", endereco.Numero);
+                cmd.Parameters.AddWithValue("@Complemento", endereco.Complemento);
+                cmd.Parameters.AddWithValue("@Cidade", endereco.Cidade);
+                cmd.Parameters.AddWithValue("@Estado", endereco.Estado);
+                cmd.Parameters.AddWithValue("@Pais", endereco.Pais);
+                cmd.Parameters.AddWithValue("@Cep", endereco.Cep);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+
     }
 }

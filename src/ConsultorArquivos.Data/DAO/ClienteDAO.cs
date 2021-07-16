@@ -54,6 +54,28 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
+        public void AdicionarCliente(Cliente cliente)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                _contatoDAO.AdicionarContato(cliente.Contato);
+                _enderecoDAO.AdicionarEndereco(cliente.Endereco);
+
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Cliente(ClientCode, Cnpj, ContatoId, EnderecoId)" +
+                    "VALUES(@ClienteCode, @Cnpj, @ContatoId, @EnderecoId)");
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@ClienteCode", cliente.ClientCode);
+                cmd.Parameters.AddWithValue("@Cnpj", cliente.Cnpj);
+                cmd.Parameters.AddWithValue("@ContatoId", cliente.ContatoId);
+                cmd.Parameters.AddWithValue("@EnderecoId", cliente.EnderecoId);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
 
     }
 }

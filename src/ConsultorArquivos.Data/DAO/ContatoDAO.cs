@@ -35,5 +35,24 @@ namespace ConsultorArquivos.Data.DAO
             return contato;
         }
 
+        public void AdicionarContato(Contato contato)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Contato(Email, DDD, Telefone)" +
+                    "VALUES(@Email, @DDD, @Telefone)");
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Email", contato.Email);
+                cmd.Parameters.AddWithValue("@DDD", contato.DDD);
+                cmd.Parameters.AddWithValue("@Telefone", contato.Telefone);
+
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
     }
 }
