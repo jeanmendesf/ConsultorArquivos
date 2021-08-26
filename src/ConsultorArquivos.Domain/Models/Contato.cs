@@ -10,5 +10,7 @@ namespace ConsultorArquivos.Domain.Models
         public string Email { get; set; }
         public int? DDD { get; set; }
         public int? Telefone { get; set; }
+        public int ClienteId { get; set; }
+
     }
 }

@@ -18,7 +18,7 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
-        string connectionString = @"Data Source =  DESKTOP-9D3IEDO\SQLEXPRESS01;
+        readonly string connectionString = @"Data Source =  DESKTOP-9D3IEDO\SQLEXPRESS02;
                                     Initial Catalog = db_ConsultorArquivos; Integrated Security=True";
 
         public IEnumerable<Cliente> ObterTodosClientes()
@@ -39,11 +39,9 @@ namespace ConsultorArquivos.Data.DAO
 
                     cliente.Id = Convert.ToInt32(reader["Id"]);
                     cliente.ClientCode = reader["ClientCode"].ToString();
-                    cliente.Cnpj = reader["Cnpj"].ToString();
-                    cliente.ContatoId = Convert.ToInt32(reader["ContatoId"]);
-                    cliente.EnderecoId = Convert.ToInt32(reader["EnderecoId"]);
-                    cliente.Contato = _contatoDAO.PreencherClienteContato(cliente.ContatoId);                    
-                    cliente.Endereco = _enderecoDAO.PreencherClienteEndereco(cliente.EnderecoId);
+                    cliente.Cnpj = reader["Cnpj"].ToString();                    
+                    cliente.Contato = _contatoDAO.PreencherClienteContato(cliente.Id);                    
+                    cliente.Endereco = _enderecoDAO.PreencherClienteEndereco(cliente.Id);
 
                     listaClientes.Add(cliente);
                 }
@@ -55,27 +53,37 @@ namespace ConsultorArquivos.Data.DAO
 
 
         public void AdicionarCliente(Cliente cliente)
-        {
+        {            
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                _contatoDAO.AdicionarContato(cliente.Contato);
-                _enderecoDAO.AdicionarEndereco(cliente.Endereco);
-
-                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Cliente(ClientCode, Cnpj, ContatoId, EnderecoId)" +
-                    "VALUES(@ClienteCode, @Cnpj, @ContatoId, @EnderecoId)");
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Cliente(ClientCode, Cnpj)" +
+                    "VALUES(@ClienteCode, @Cnpj)", connection);
                 cmd.CommandType = CommandType.Text;
 
                 cmd.Parameters.AddWithValue("@ClienteCode", cliente.ClientCode);
-                cmd.Parameters.AddWithValue("@Cnpj", cliente.Cnpj);
-                cmd.Parameters.AddWithValue("@ContatoId", cliente.ContatoId);
-                cmd.Parameters.AddWithValue("@EnderecoId", cliente.EnderecoId);
+                cmd.Parameters.AddWithValue("@Cnpj", cliente.Cnpj);                
 
                 connection.Open();
                 cmd.ExecuteNonQuery();
                 connection.Close();
             }
+
+            _contatoDAO.AdicionarContato(cliente.Contato, cliente.ClientCode);
+            _enderecoDAO.AdicionarEndereco(cliente.Endereco, cliente.ClientCode);
         }
 
+
+
+
+        //Se o registro existir, retornará True, se não, retornará False
+        public bool Existe(string clientCode)
+        {
+            Cliente cliente = new Cliente();
+            
+            //Verificar se há algum cliente com um clienteCode especifico.
+            
+            return true;
+        }
 
     }
 }

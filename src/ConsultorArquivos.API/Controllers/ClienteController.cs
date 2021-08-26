@@ -28,5 +28,15 @@ namespace ConsultorArquivos.API.Controllers
 
             return Ok(listaClientes);
         }
+
+
+
+        [HttpPost]
+        [Route("adicionar")]
+        public ActionResult AdicionarCliente(Cliente cliente)
+        {
+            _clienteDAO.AdicionarCliente(cliente);
+            return Ok();
+        }
     }
 }
