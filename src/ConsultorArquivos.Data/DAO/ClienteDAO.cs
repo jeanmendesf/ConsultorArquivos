@@ -90,6 +90,27 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
+        public void AtualizarCliente(Cliente cliente)
+        {            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("UPDATE dbo.Cliente SET " +
+                    "ClientCode=@ClientCode, Cnpj=@Cnpj WHERE Id =" + cliente.Id, connection);
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@ClientCode", cliente.ClientCode);
+                cmd.Parameters.AddWithValue("@Cnpj", cliente.Cnpj);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+
+            _contatoDAO.AtualizarContato(cliente.Contato, cliente.Id);
+            _enderecoDAO.AtualizarEndereco(cliente.Endereco, cliente.Id);
+        }
+
+
         //Se o registro existir, retornará True, se não, retornará False
         public bool Existe(string clientCode)
         {

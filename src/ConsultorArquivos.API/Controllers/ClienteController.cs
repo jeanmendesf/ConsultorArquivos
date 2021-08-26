@@ -40,6 +40,16 @@ namespace ConsultorArquivos.API.Controllers
         }
 
 
+        [HttpPut]
+        [Route("atualizar/{id:int}")]
+        public ActionResult AtualizarCliente(Cliente cliente, int id)
+        {
+            cliente.Id = id;
+            _clienteDAO.AtualizarCliente(cliente);
+            return Ok();
+        }
+
+
         [HttpDelete]
         [Route("deletar/{id:int}")]
         public ActionResult DeletarCliente(int id)

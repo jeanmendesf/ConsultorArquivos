@@ -38,13 +38,13 @@ namespace ConsultorArquivos.Data.DAO
             return contato;
         }
 
-        
+
         public void AdicionarContato(Contato contato, string clientCode)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("INSERT INTO Contato(Email, DDD, Telefone, ClienteId)" +
-                    "VALUES(@Email, @DDD, @Telefone, @ClienteId)",connection);
+                    "VALUES(@Email, @DDD, @Telefone, @ClienteId)", connection);
                 cmd.CommandType = CommandType.Text;
 
                 cmd.Parameters.AddWithValue("@Email", contato.Email);
@@ -52,6 +52,25 @@ namespace ConsultorArquivos.Data.DAO
                 cmd.Parameters.AddWithValue("@Telefone", contato.Telefone);
                 cmd.Parameters.AddWithValue("@ClienteId", AcharClientePorClientCode(clientCode));
 
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+
+        public void AtualizarContato(Contato contato, int clienteId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("UPDATE dbo.Contato SET " +
+                    "Email=@Email, DDD=@DDD, Telefone=@Telefone WHERE ClienteId = " + clienteId, connection);
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Email", contato.Email);
+                cmd.Parameters.AddWithValue("@DDD", contato.DDD);
+                cmd.Parameters.AddWithValue("@Telefone", contato.Telefone);
 
                 connection.Open();
                 cmd.ExecuteNonQuery();

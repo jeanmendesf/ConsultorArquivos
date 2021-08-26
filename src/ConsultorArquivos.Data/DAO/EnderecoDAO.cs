@@ -84,6 +84,30 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
+        public void AtualizarEndereco(Endereco endereco, int clienteId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("Update dbo.Endereco SET " +
+                    "Logradouro=@Logradouro, Numero=@Numero, Complemento=@Complemento, Cidade=@Cidade, " +
+                    "Estado=@Estado, Pais=@Pais, Cep=@Cep WHERE ClienteId=" + clienteId, connection);
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
+                cmd.Parameters.AddWithValue("@Numero", endereco.Numero);
+                cmd.Parameters.AddWithValue("@Complemento", endereco.Complemento);
+                cmd.Parameters.AddWithValue("@Cidade", endereco.Cidade);
+                cmd.Parameters.AddWithValue("@Estado", endereco.Estado);
+                cmd.Parameters.AddWithValue("@Pais", endereco.Pais);
+                cmd.Parameters.AddWithValue("@Cep", endereco.Cep);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }                
+        }
+
+
         //Otimizar para não haver repetições !!
         public int AcharClientePorClientCode(string clientCode)
         {
