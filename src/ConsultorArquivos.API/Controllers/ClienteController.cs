@@ -19,6 +19,7 @@ namespace ConsultorArquivos.API.Controllers
             _clienteDAO = new ClienteDAO();
         }
 
+
         [HttpGet]
         [Route("")]
         public ActionResult ObterTodosClientes()
@@ -30,7 +31,6 @@ namespace ConsultorArquivos.API.Controllers
         }
 
 
-
         [HttpPost]
         [Route("adicionar")]
         public ActionResult AdicionarCliente(Cliente cliente)
@@ -38,5 +38,15 @@ namespace ConsultorArquivos.API.Controllers
             _clienteDAO.AdicionarCliente(cliente);
             return Ok();
         }
+
+
+        [HttpDelete]
+        [Route("deletar/{id:int}")]
+        public ActionResult DeletarCliente(int id)
+        {
+            _clienteDAO.DeletarCliente(id);
+            return Ok();
+        }
+
     }
 }
