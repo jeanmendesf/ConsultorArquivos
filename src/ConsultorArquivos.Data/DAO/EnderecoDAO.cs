@@ -12,6 +12,7 @@ namespace ConsultorArquivos.Data.DAO
         string connectionString = @"Data Source =  DESKTOP-9D3IEDO\SQLEXPRESS02;
                                     Initial Catalog = db_ConsultorArquivos; Integrated Security=True";
 
+
         public Endereco PreencherClienteEndereco(int clienteId)
         {
             Endereco endereco = new Endereco();
@@ -43,6 +44,7 @@ namespace ConsultorArquivos.Data.DAO
             return endereco;
         }
 
+
         public void AdicionarEndereco(Endereco endereco, string clientCode)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -67,6 +69,19 @@ namespace ConsultorArquivos.Data.DAO
             }
         }
 
+
+        public void DeletarEndereco(int clienteId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Endereco WHERE ClienteId =" + clienteId, connection);
+                cmd.CommandType = CommandType.Text;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
 
 
         //Otimizar para não haver repetições !!

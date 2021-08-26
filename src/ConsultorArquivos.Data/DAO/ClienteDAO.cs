@@ -75,12 +75,12 @@ namespace ConsultorArquivos.Data.DAO
 
         public void DeletarCliente(int id)
         {
-            //Chamar função DeletarContato
-            //Chamar função DeletarEndereco
+            _contatoDAO.DeletarContato(id);
+            _enderecoDAO.DeletarEndereco(id);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM dbo_ConsultorArquivos WHERE Id ="+ id, connection);
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Cliente WHERE Id =" + id, connection);
                 cmd.CommandType = CommandType.Text;
 
                 connection.Open();

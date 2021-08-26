@@ -60,6 +60,19 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
+        public void DeletarContato(int clienteId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Contato WHERE ClienteId =" + clienteId, connection);
+                cmd.CommandType = CommandType.Text;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
 
         //Otimizar para não haver repetições !!
         public int AcharClientePorClientCode(string clientCode)
