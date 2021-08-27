@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ConsultorArquivos.LeitorArquivos;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -53,7 +54,8 @@ namespace ConsultorArquivos.WorkerService
         public void ArquivoCriado(object source, FileSystemEventArgs e)
         {
             Console.WriteLine($"O arquivo   {e.Name}    foi criado.");
-            //Ler e organizar arquivo em objetos.
+
+            ManipuladorTxt.LeitorTexto(e.FullPath);
         }
     }
 }

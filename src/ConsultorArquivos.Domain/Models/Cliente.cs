@@ -8,20 +8,12 @@ namespace ConsultorArquivos.Domain.Models
     {
         public Cliente(){}
         public Cliente(string cnpj, string logradouro, int? numero, string complemento,
-                      string cidade, string estado, string pais, int? cep,
-                      string email, int? dDD, int? telefone, string clientCode)
+                       string cidade, string estado, string pais, int? cep,
+                       string email, int? dDD, int? telefone, string clientCode)
         {
             Cnpj = cnpj;
-            Endereco.Logradouro = logradouro;
-            Endereco.Numero = numero;
-            Endereco.Complemento = complemento;
-            Endereco.Cidade = cidade;
-            Endereco.Estado = estado;
-            Endereco.Pais = pais;
-            Endereco.Cep = cep;
-            Contato.Email = email;
-            Contato.DDD = dDD;
-            Contato.Telefone = telefone;
+            Endereco = new Endereco(logradouro, numero, complemento, cidade, estado, pais, cep);
+            Contato = new Contato(email, dDD, telefone);
             ClientCode = clientCode;
         }
 
