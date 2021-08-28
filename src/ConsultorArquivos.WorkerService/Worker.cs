@@ -55,7 +55,7 @@ namespace ConsultorArquivos.WorkerService
         {
             Console.WriteLine($"O arquivo   {e.Name}    foi criado.");
 
-            ManipuladorTxt.LeitorTexto(e.FullPath);
+            ManipuladorTxt.LeitorTexto(e.FullPath); 
         }
     }
 }

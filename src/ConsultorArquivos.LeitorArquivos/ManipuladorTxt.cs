@@ -11,7 +11,7 @@ namespace ConsultorArquivos.LeitorArquivos
     {
 
         //Vai ler um arquivo de texto, organizar e separar por clientes as informações contidas.
-        public static void LeitorTexto(string txtEndereco)
+        public static List<Cliente> LeitorTexto(string txtEndereco)
         {
             List<Cliente> clientes = new List<Cliente>();
 
@@ -34,17 +34,36 @@ namespace ConsultorArquivos.LeitorArquivos
                                                       string.IsNullOrEmpty(item[9]) ? 0 : Convert.ToInt32(item[9]),
                                                       string.IsNullOrEmpty(item[10]) ? 0 : Convert.ToInt32(item[10]),
                                                       item[11]);
-                    clientes.Add(novoCliente);
+
+                    if (!ClienteExiste(novoCliente, clientes))
+                        clientes.Add(novoCliente);
                 }
-            }
+            }       
 
-            foreach(Cliente c in clientes)
-                Console.WriteLine(c);
-
-            Console.ReadLine();
-
-            //Organizar arquivo para retornar a lista de clientes, criada acima.
-            //return clientes;
+            return clientes;
         }
+
+
+        //Vai retornar True se o cliente existe, false caso não exista
+        //Procurar e excluir o cliente antigo que tenha o mesmo ClientCode e adicionar o cliente novo.
+        public static bool ClienteExiste(Cliente novoCliente, List<Cliente> listaClientes)
+        {
+            bool existe = new bool(); 
+
+            foreach (Cliente cliente in listaClientes.ToList())
+            {
+                if (cliente.ClientCode == novoCliente.ClientCode)
+                {
+                    listaClientes.Remove(cliente);
+                    listaClientes.Add(novoCliente);
+                    existe = true;
+                }
+                else
+                    existe = false;
+            }
+            return existe;
+        }
+
+
     }
 }
