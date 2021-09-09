@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsultorArquivos.LeitorArquivos
 {
@@ -11,14 +12,16 @@ namespace ConsultorArquivos.LeitorArquivos
     {
 
         //Vai ler um arquivo de texto, organizar e separar por clientes as informações contidas.
-        public static List<Cliente> LeitorTexto(string txtEndereco)
+        public static async Task<List<Cliente>> LeitorTexto(string txtEndereco)
         {
             List<Cliente> clientes = new List<Cliente>();
 
-            var linhas = File.ReadAllLines(txtEndereco).ToList();
+            
 
-            foreach (var linha in linhas)
+            using (StreamReader streamReader = new StreamReader(txtEndereco))
             {
+                var linha = streamReader.ReadLine();
+
                 string[] item = linha.Split(';');
                 if (item[0] != "CNPJ")
                 {
@@ -40,6 +43,7 @@ namespace ConsultorArquivos.LeitorArquivos
                 }
             }       
 
+            
             return clientes;
         }
 

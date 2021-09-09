@@ -15,6 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.Data", "s
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.WorkerService", "src\ConsultorArquivos.WorkerService\ConsultorArquivos.WorkerService.csproj", "{94576F40-B112-4443-9DBC-FCC96AE9F45C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26C10FBB-7318-4700-8037-198D4D9955D6} = {26C10FBB-7318-4700-8037-198D4D9955D6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultorArquivos.LeitorArquivos", "src\ConsultorArquivos.LeitorArquivos\ConsultorArquivos.LeitorArquivos.csproj", "{C2E0F46D-920F-4C52-A6AF-AB0422ADD2AD}"
 	ProjectSection(ProjectDependencies) = postProject
