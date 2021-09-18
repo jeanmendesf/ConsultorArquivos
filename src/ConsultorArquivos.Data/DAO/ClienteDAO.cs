@@ -120,6 +120,14 @@ namespace ConsultorArquivos.Data.DAO
         }
 
 
+        public void AtualizarVariosClientes(List<Cliente> listaClientes)
+        {
+            foreach (Cliente cliente in listaClientes)
+            {
+                AtualizarCliente(cliente);
+            }
+        }
+
         //Se o registro existir, retornará True, se não, retornará False
         //Verificar se há algum cliente com um clienteCode especifico.
         public bool Existe(string clientCode)

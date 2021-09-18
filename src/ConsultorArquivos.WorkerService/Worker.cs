@@ -41,7 +41,7 @@ namespace ConsultorArquivos.WorkerService
                                        NotifyFilters.LastAccess |
                                        NotifyFilters.CreationTime;
 
-                watcher.Changed += ArquivoAtualizado;
+                watcher.Changed += new FileSystemEventHandler(ArquivoAtualizado);
                 watcher.Created += new FileSystemEventHandler(ArquivoCriado);
 
 
@@ -81,7 +81,8 @@ namespace ConsultorArquivos.WorkerService
             var clientesExistentes = new List<Cliente>();
 
             (clientesNovos, clientesExistentes) = _clienteDAO.VerificarClientes(clientes);
-            
+            _clienteDAO.AdicionarVariosClientes(clientesNovos);
+            _clienteDAO.AtualizarVariosClientes(clientesExistentes);
         }
     }
 }
