@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ConsultorArquivos.Data.DAO;
 using ConsultorArquivos.Domain.Models;
 using ConsultorArquivos.LeitorArquivos;
 using Microsoft.Extensions.Hosting;
@@ -16,9 +17,12 @@ namespace ConsultorArquivos.WorkerService
         //Serve apenas para mostrar um log, uma mensagem.
         private readonly ILogger<Worker> _logger;
 
+        readonly ClienteDAO _clienteDAO;
+
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
+            _clienteDAO = new ClienteDAO();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -71,6 +75,13 @@ namespace ConsultorArquivos.WorkerService
             //verificação antes da ultima ter fechado, por isso o Sleep.
             Thread.Sleep(1000);
             clientes = await ManipuladorTxt.LeitorTexto(e.FullPath);
+
+            //Separa clientes novos de existentes:
+            var clientesNovos = new List<Cliente>();
+            var clientesExistentes = new List<Cliente>();
+
+            (clientesNovos, clientesExistentes) = _clienteDAO.VerificarClientes(clientes);
+            
         }
     }
 }

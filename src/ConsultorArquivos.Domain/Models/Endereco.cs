@@ -6,6 +6,8 @@ namespace ConsultorArquivos.Domain.Models
 {
     public class Endereco
     {
+        public Endereco(){}
+        
         public Endereco(string logradouro, int? numero, string complemento,
                         string cidade, string estado, string pais, int? cep)
         {

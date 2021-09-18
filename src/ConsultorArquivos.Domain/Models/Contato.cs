@@ -6,6 +6,9 @@ namespace ConsultorArquivos.Domain.Models
 {
     public class Contato
     {
+
+        public Contato(){}
+
         public Contato(string email, int? dDD, int? telefone)
         {
             Email = email;

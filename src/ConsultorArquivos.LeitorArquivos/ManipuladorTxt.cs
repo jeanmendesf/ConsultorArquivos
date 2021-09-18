@@ -16,12 +16,10 @@ namespace ConsultorArquivos.LeitorArquivos
         {
             List<Cliente> clientes = new List<Cliente>();
 
-            
+            var linhas = File.ReadAllLines(txtEndereco).ToList();
 
-            using (StreamReader streamReader = new StreamReader(txtEndereco))
+            foreach (var linha in linhas)
             {
-                var linha = streamReader.ReadLine();
-
                 string[] item = linha.Split(';');
                 if (item[0] != "CNPJ")
                 {
@@ -41,9 +39,9 @@ namespace ConsultorArquivos.LeitorArquivos
                     if (!ClienteExiste(novoCliente, clientes))
                         clientes.Add(novoCliente);
                 }
-            }       
+            }
 
-            
+
             return clientes;
         }
 
@@ -52,7 +50,7 @@ namespace ConsultorArquivos.LeitorArquivos
         //Procurar e excluir o cliente antigo que tenha o mesmo ClientCode e adicionar o cliente novo.
         public static bool ClienteExiste(Cliente novoCliente, List<Cliente> listaClientes)
         {
-            bool existe = new bool(); 
+            bool existe = new bool();
 
             foreach (Cliente cliente in listaClientes.ToList())
             {
